@@ -8,16 +8,6 @@ require "film_snob/dailymotion"
 
 class FilmSnob
   class UrlToVideo
-    VIDEO_SITES = [
-      Vimeo,
-      YouTube,
-      Hulu,
-      FunnyOrDie,
-      Coub,
-      Dailymotion,
-      Instagram
-    ]
-
     attr_reader :url, :options
 
     def initialize(url, options)
@@ -32,7 +22,7 @@ class FilmSnob
     private
 
     def site
-      @site ||= VIDEO_SITES.find do |site|
+      @site ||= VideoSite.subclasses.find do |site|
         site.valid_url_patterns.any? do |pattern|
           pattern.match(url)
         end
